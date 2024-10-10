@@ -4,7 +4,7 @@
 # If you have tools installed in other directories, adjust PATH here AND
 # in ~lfs/.bashrc (section 4.4) as well.
 
-LC_ALL=C 
+LC_ALL=C
 PATH=/usr/bin:/bin
 
 bail() { echo "FATAL: $1"; exit 1; }
