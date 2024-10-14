@@ -1,0 +1,7 @@
+for pkg in $(cat package-list.txt); do
+    if [ -f "$pkg" ]; then
+        echo "$pkg is present"
+    else
+        echo "$pkg is missing"
+    fi
+done
