@@ -1,5 +1,3 @@
-echo "export $LFS=/mnt/lfs" >> .profile
-$LFS=/mnt/lfs
 mkdir -v $LFS/sources
 chmod -v a+wt $LFS/sources
 cd $LFS/sources
