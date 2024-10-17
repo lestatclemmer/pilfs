@@ -37,6 +37,10 @@ bash package-list-checker | grep no
 wget https://github.com/libexpat/libexpat/releases/tag/R_2_5_0/expat-2.5.0.tar.xz
 bash package-list-checker | grep no
 
+!!!IMPORTANT?
+edit ch5 and ch7-build.sh for RPi model, America/Chicago timezone, and Letter paper size
+chmod +x ch5-build.sh ch7-build.sh
+
 #4.2
 cd ~
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-2.sh
@@ -45,10 +49,6 @@ bash 4-2.sh
 #4.3
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-3.sh
 bash 4-3.sh
-
-!!!IMPORTANT?
-edit ch5 and ch7-build.sh for RPi model, America/Chicago timezone, and Letter paper size
-chmod +x ch5-build.sh ch7-build.sh
 
 #4.4
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-4.sh
