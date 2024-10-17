@@ -15,7 +15,7 @@ vi /etc/fstab
 /dev/mmcblk0p3  /mnt/lfs ext4   defaults      1     1
 
 #2.7
-echo "export $LFS=/mnt/lfs" >> .profile
+echo "export LFS=/mnt/lfs" >> .profile
 export LFS=/mnt/lfs
 mkdir -pv $LFS
 mount -v -t ext4 /dev/mmcblk0p3 $LFS
