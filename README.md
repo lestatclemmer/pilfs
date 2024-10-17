@@ -1,7 +1,7 @@
 #prep
 passwd
 date MMDDhhmmYYYY 101609302024
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/version-check.sh --no-check-certificate
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/version-check.sh
 bash version-check.sh
 
 #2.4
@@ -27,25 +27,25 @@ swapon -v /swapfile
 mkdir -v $LFS/sources
 chmod -v a+wt $LFS/sources
 cd $LFS/sources
-wget https://intestinate.com/pilfs/scripts/wget-list-sysv --no-check-certificate
-wget --input-file=wget-list-sysv --continue --directory-prefix=$LFS/sources --no-check-certificate
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-creator.sh --no-check-certificate
+wget https://intestinate.com/pilfs/scripts/wget-list-sysv
+wget --input-file=wget-list-sysv --continue --directory-prefix=$LFS/sources
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-creator.sh
 bash package-list-creator
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-checker.sh --no-check-certificate
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-checker.sh
 bash package-list-checker | tee checked.txt
 vi checked.txt
 #will likely have to do the below
-wget https://github.com/libexpat/libexpat/releases/tag/R_2_5_0/expat-2.5.0.tar.xz --no-check-certificate
+wget https://github.com/libexpat/libexpat/releases/tag/R_2_5_0/expat-2.5.0.tar.xz
 bash package-list-checker | tee checked.txt
 vi checked.txt
 
 #4.2
 cd ~
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-2.sh --no-check-certificate
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-2.sh
 bash 4-2.sh
 
 #4.3
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-3.sh --no-check-certificate
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-3.sh
 bash 4-3.sh
 
 !!!IMPORTANT?
@@ -53,5 +53,5 @@ edit ch5 and ch7-build.sh for RPi model, America/Chicago timezone, and Letter pa
 chmod +x ch5-build.sh ch7-build.sh
 
 #4.4
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-4.sh --no-check-certificate
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-4.sh
 bash 4-4.sh
