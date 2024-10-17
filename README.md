@@ -32,8 +32,7 @@ wget --input-file=wget-list-sysv --continue --directory-prefix=$LFS/sources
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-creator.sh
 bash package-list-creator
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-checker.sh
-bash package-list-checker | tee checked.txt
-vi checked.txt
+bash package-list-checker | grep no
 #will likely have to do the below
 wget https://github.com/libexpat/libexpat/releases/tag/R_2_5_0/expat-2.5.0.tar.xz
 bash package-list-checker | tee checked.txt
