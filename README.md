@@ -5,7 +5,7 @@ wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/versi
 bash version-check.sh
 
 #2.4
-cfdisk /dev/mmcblk0 -> fill end free space -> write
+-cfdisk /dev/mmcblk0 -> fill end free space -> write
 reboot
 
 #2.5
@@ -34,11 +34,13 @@ bash package-list-creator
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/package-list-checker.sh
 bash package-list-checker | grep no
 #will likely have to do the below
-wget https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.xz
+wget https://github.com/libexpat/libexpat/releases/tag/R_2_5_0/expat-2.5.0.tar.xz
 bash package-list-checker | grep no
 
-!!!IMPORTANT?
-edit ch5 and ch7-build.sh for RPi model, America/Chicago timezone, and Letter paper size
+#prep build scripts, important to do before you switch to the lfs user
+#adding lfs permissions to the sources dir would technically make it possible to do these things as
+#the lfs user, but I'm unsure if this would mess with anything else...
+-edit ch5 and ch7-build.sh for RPi model, America/Chicago timezone, and Letter paper size
 chmod +x ch5-build.sh ch7-build.sh
 
 #4.2
@@ -53,3 +55,97 @@ bash 4-3.sh
 #4.4
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-4.sh
 bash 4-4.sh
+
+#build ch5 & ch6
+cd $LFS/sources
+./ch5-build.sh
+#now wait.....
+
+#7.2
+su -
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
+bash 7-2.sh
+
+#7.3
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-3.sh
+bash 7-3.sh
+
+#prep 7.5 & 7.6
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-5.sh
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-6.sh
+mv 7-5.sh 7-6.sh $LFS
+
+#7.4
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-4.sh
+bash 7-4.sh
+
+#run 7.5 & 7.6
+bash 7-5.sh; bash 7-6.sh
+
+#build ch7 & ch8
+cd sources
+./ch7-build.sh
+#now wait some more...
+
+#final steps of the build script
+-choose your root password
+
+-decide whether you want to copy the supplied Braodcom libraries to /opt/vc
+-From what I could tell, these libraries are used for hardware acceleration for things like 
+-rendering graphics and video decoding. Since IMPISH doens't need anything like that, I chose not to copy these libraries.
+-I'm not sure if this was the correct decision...
+
+-decide whether you want to copy the supplied kernel modules to /lib/modules
+-I assumed that IMPISH didn't want to compile our own kernel, so I chose to copy these modules. I'm not sure if this was the correct decision...
+-HOWEVER, unpacking the firmware that contains these modules is only done automatically when you respond 'yes' to the previous question.
+-If you chose 'no' for the previous question as I did, choose 'no' for now and run the commands shown in the next section of this README.
+
+-decide if you want the boot partition mounted and the kernel & bootloader overwritten with the one you downloaded
+-I assumed that IMPISH does want this done, but I'm still not sure if this was the correct decision.
+-HOWEVER, this also relies on unpacking the firmware, which if you're following my steps, wasn't automatically done.
+-In this case, choose 'no' for now and run the commands shown in the section after the next of this README.
+
+#to run if you want to copy the supplied kernel modules but don't want to copy the supplied Broadcom libraries
+-assuming you're in /sources/:
+tar -zxf master.tar.gz
+cp -rv /sources/firmware-master/modules /lib
+
+#to run if you want the boot partition mounted and the kernel & bootloader overwritten with the one you downloaded but you don't want to copy the supplied Broadcom libraries
+cd ~
+mount /dev/mmcblk0p1 /boot
+cp -rv /sources/firmware-master/boot /
+umount /boot
+
+#8.84
+-I've decided not to strip the IMPISH LFS system of debugging symbols and some unecessary symbol table entries because I'm unsure if we will want
+-to do any debugging of the system in the future. Also because it seems that theese symbols and table entries may be needed in BLFS,
+-(as is mentioned in this section of the LFS guide), and I think we may want to explore some of the options that BLFS has to offer.
+
+#8.85
+rm -rf /tmp/{*,.*}
+-this didn't actually do anything for me as the only thing in my tmp folder was another folder...not sure if that's cos I rebooted after running ch7-build.sh or what...
+find /usr/lib /usr/libexec -name \*.la -delete
+find /usr -depth -name $(uname -m)-lfs-linux-gnu\* | xargs rm -rf
+-I ran this as well as the below line because I knew that the pilfs guide instructed to change the "gnu" bit to "gnueabihf", unsure if this still accomplishes what it should
+find /usr -depth -name $(uname -m)-lfs-linux-gnueabihf\* | xargs rm -rf
+userdel -r tester
+this resulted in "userdel: tester mail spool (/var/mail/tester) not found, don't know what that's all about but I suspect this is fine
+
+#9.2
+cd sources
+tar -Jxf lfs-bootscripts-20230728.tar.xz
+cd lfs-bootscripts-20230728
+make install
+
+#9.4
+bash /usr/lib/udev/init-net-rules.sh
+
+#notes:
+-consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script
+
+-9.3 has info on device and module handling, such as what to do if certain errors occur
+
+-9.4 has info on network devices and other devices
+
+
+
