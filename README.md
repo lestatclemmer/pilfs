@@ -1,20 +1,20 @@
-#prep
+## prep
 passwd
 date MMDDhhmmYYYY 101609302024
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/version-check.sh
 bash version-check.sh
 
-#2.4
+## 2.4
 -cfdisk /dev/mmcblk0 -> fill end free space -> write
 reboot
 
-#2.5
+## 2.5
 mkfs.ext4 -m 1 -L MyLFS /dev/mmcblk0p3
 vi /etc/fstab
 #add below line and uncomment swapfile
 /dev/mmcblk0p3  /mnt/lfs ext4   defaults      1     1
 
-#2.7
+## 2.7
 echo "export LFS=/mnt/lfs" >> .profile
 export LFS=/mnt/lfs
 mkdir -pv $LFS
@@ -23,7 +23,7 @@ dd if=/dev/zero of=/swapfile bs=1M count=512
 mkswap /swapfile
 swapon -v /swapfile
 
-#3.1
+## 3.1
 mkdir -v $LFS/sources
 chmod -v a+wt $LFS/sources
 cd $LFS/sources
@@ -43,51 +43,51 @@ bash package-list-checker | grep no
 -edit ch5 and ch7-build.sh for RPi model, America/Chicago timezone, and Letter paper size
 chmod +x ch5-build.sh ch7-build.sh
 
-#4.2
+## 4.2
 cd ~
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-2.sh
 bash 4-2.sh
 
-#4.3
+## 4.3
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-3.sh
 bash 4-3.sh
 
-#4.4
+## 4.4
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/4-4.sh
 bash 4-4.sh
 
-#build ch5 & ch6
+## build ch5 & ch6
 cd $LFS/sources
 ./ch5-build.sh
 #now wait.....
 
-#7.2
+## 7.2
 su -
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
 bash 7-2.sh
 
-#7.3
+## 7.3
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-3.sh
 bash 7-3.sh
 
-#prep 7.5 & 7.6
+## prep 7.5 & 7.6
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-5.sh
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-6.sh
 mv 7-5.sh 7-6.sh $LFS
 
-#7.4
+## 7.4
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-4.sh
 bash 7-4.sh
 
-#run 7.5 & 7.6
+## run 7.5 & 7.6
 bash 7-5.sh; bash 7-6.sh
 
-#build ch7 & ch8
+## build ch7 & ch8
 cd sources
 ./ch7-build.sh
 #now wait some more...
 
-#final steps of the build script
+## final steps of the build script
 -choose your root password
 
 -decide whether you want to copy the supplied Braodcom libraries to /opt/vc
@@ -116,12 +116,12 @@ mount /dev/mmcblk0p1 /boot
 cp -rv /sources/firmware-master/boot /
 umount /boot
 
-#8.84
--I've decided not to strip the IMPISH LFS system of debugging symbols and some unecessary symbol table entries because I'm unsure if we will want
--to do any debugging of the system in the future. Also because it seems that theese symbols and table entries may be needed in BLFS,
--(as is mentioned in this section of the LFS guide), and I think we may want to explore some of the options that BLFS has to offer.
+## 8.84
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
+bash 8-84.sh
+#
 
-#8.85
+## 8.85
 rm -rf /tmp/{*,.*}
 -this didn't actually do anything for me as the only thing in my tmp folder was another folder...not sure if that's cos I rebooted after running ch7-build.sh or what...
 find /usr/lib /usr/libexec -name \*.la -delete
@@ -131,21 +131,18 @@ find /usr -depth -name $(uname -m)-lfs-linux-gnueabihf\* | xargs rm -rf
 userdel -r tester
 this resulted in "userdel: tester mail spool (/var/mail/tester) not found, don't know what that's all about but I suspect this is fine
 
-#9.2
+## 9.2
 cd sources
 tar -Jxf lfs-bootscripts-20230728.tar.xz
 cd lfs-bootscripts-20230728
 make install
 
-#9.4
+## 9.4
 bash /usr/lib/udev/init-net-rules.sh
 
-#notes:
+## notes:
 -consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script
 
 -9.3 has info on device and module handling, such as what to do if certain errors occur
 
--9.4 has info on network devices and other devices
-
-
-
+-9.4 has info on network devices and other devices, might have to run the first bash script again if you add any new NICs, unsure tho
