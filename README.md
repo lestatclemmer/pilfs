@@ -116,11 +116,6 @@ mount /dev/mmcblk0p1 /boot
 cp -rv /sources/firmware-master/boot /
 umount /boot
 
-## 8.84
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
-bash 8-84.sh
-#
-
 ## 8.85
 rm -rf /tmp/{*,.*}
 -this didn't actually do anything for me as the only thing in my tmp folder was another folder...not sure if that's cos I rebooted after running ch7-build.sh or what...
@@ -139,6 +134,22 @@ make install
 
 ## 9.4
 bash /usr/lib/udev/init-net-rules.sh
+
+## note:
+-at this point William told me that I should strip the system of all debug symbols, so I decided to follow the steps outlined in 7.13 to create a backup of the
+LFS system
+
+## creating an LFS backup
+mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
+umount $LFS/dev/pts
+umount $LFS/{sys,proc,run,dev}
+cd $LFS
+tar -cJpf $HOME/lfs-temp-tools-12.2.tar.xz .
+
+## returning to 8.84 to strip the system of all debug symbols
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
+bash 8-84.sh
+### it should be noted that I had to 
 
 ## notes:
 -consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script
