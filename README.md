@@ -138,13 +138,17 @@ bash /usr/lib/udev/init-net-rules.sh
 ## note:
 -at this point William told me that I should strip the system of all debug symbols, so I decided to follow the steps outlined in 7.13 to create a backup of the
 LFS system
+-I had to resize the partitions because the 2nd partition, PiLFs, was too small to hold my backup of the 3rd partition, MyLFS. Needless to say this was a fairly annoying learning
+curve that I don't want to write about here
 
 ## creating an LFS backup
+exit
 mountpoint -q $LFS/dev/shm && umount $LFS/dev/shm
 umount $LFS/dev/pts
 umount $LFS/{sys,proc,run,dev}
 cd $LFS
-tar -cJpf $HOME/lfs-temp-tools-12.2.tar.xz .
+tar -cJpf $HOME/lfs-ch9-4-snapshot-12.2.tar.xz .
+#renamed the file to more accurately describe what this backup is
 
 ## returning to 8.84 to strip the system of all debug symbols
 wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
