@@ -138,8 +138,7 @@ bash /usr/lib/udev/init-net-rules.sh
 ## note:
 -at this point William told me that I should strip the system of all debug symbols, so I decided to follow the steps outlined in 7.13 to create a backup of the
 LFS system
--I had to resize the partitions because the 2nd partition, PiLFs, was too small to hold my backup of the 3rd partition, MyLFS. Needless to say this was a fairly annoying learning
-curve that I don't want to write about here
+-I had to resize the partitions because the 2nd partition, PiLFs, was too small to hold my backup of the 3rd partition, MyLFS. Needless to say this was a fairly annoying learning experience that I don't want to write about here
 
 ## creating an LFS backup
 exit
@@ -151,12 +150,14 @@ tar -cJpf $HOME/lfs-ch9-4-snapshot-12.2.tar.xz .
 #renamed the file to more accurately describe what this backup is
 
 ## returning to 8.84 to strip the system of all debug symbols
-wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/7-2.sh
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/8-84.sh
+mv 8-84.sh 
+#I then ran 7-3.sh (without the first mkdir line) and 7-4.sh to enter the chroot environment
 bash 8-84.sh
-### it should be noted that I had to 
+### it should be noted that I had to replace certain packages in the 8-84.sh script to match the packages downloaded for PiLFS, since these packages don't necessarily match the packages given in the LFS guide
 
 ## notes:
--consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script
+-consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script, might not be possible to do without leaving the chroot environment
 
 -9.3 has info on device and module handling, such as what to do if certain errors occur
 
