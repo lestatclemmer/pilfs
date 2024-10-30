@@ -198,7 +198,7 @@ I then ran 7-3.sh (without the first mkdir line) and 7-4.sh to enter the chroot 
 ### it should be noted that I had to replace certain packages in the 8-84.sh script to match the packages downloaded for PiLFS, since these packages don't necessarily match the packages given in the LFS guide
 
 ## 9.5.1
-#I'm skipping this because I want to set up DHCP later, which is outlined in the BLFS guide
+I'm skipping this because I want to set up DHCP later, which is outlined in the BLFS guide
 
 ## 9.5.2
 ```
@@ -215,7 +215,26 @@ EOF
 I'm really not sure if I should have used "search umn.edu" as the domain, but I guess we will see how it goes
 
 ## 9.5.3
+```echo "impish" > /etc/hostname```
+chose impish as the hostname
 
+## 9.5.4
+```
+cat > /etc/hosts << "EOF"
+# Begin /etc/hosts
+
+127.0.0.1 localhost.localdomain localhost
+127.0.1.1 impish.localdomain impish
+::1       localhost ip6-localhost ip6-loopback
+ff02::1   ip6-allnodes
+ff02::2   ip6-allrouters
+
+# End /etc/hosts
+EOF
+```
+this is what was in the pilfs /etc/hosts file but with "impish" replacing "pilfs"
+
+## 
 
 ## notes:
 consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script, might not be possible to do without leaving the chroot environment
@@ -223,3 +242,5 @@ consider adding the "create a backup" process outlined in 7.13 to the ch7-build.
 9.3 has info on device and module handling, such as what to do if certain errors occur
 
 9.4 has info on network devices and other devices, might have to run the first bash script again if you add any new NICs, unsure tho
+
+9.5.4 likely needs to be revisited in the future if I'm having issue connecting to the internet
