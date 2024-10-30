@@ -192,7 +192,7 @@ renamed the file to more accurately describe what this backup is
 
 ## returning to 8.84 to strip the system of all debug symbols
 ```wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/8-84.sh```
-```mv 8-84.sh```
+```mv 8-84.sh $LFS```
 I then ran 7-3.sh (without the first mkdir line) and 7-4.sh to enter the chroot environment
 ```bash 8-84.sh```
 ### it should be noted that I had to replace certain packages in the 8-84.sh script to match the packages downloaded for PiLFS, since these packages don't necessarily match the packages given in the LFS guide
@@ -234,7 +234,23 @@ EOF
 ```
 this is what was in the pilfs /etc/hosts file but with "impish" replacing "pilfs"
 
-## 
+## 9.6.2
+```
+exit
+wget https://raw.githubusercontent.com/lestatclemmer/pilfs/refs/heads/main/9-6-2.sh
+mv 9-6-2.sh $LFS
+bash 7-4.sh
+bash 9-6-2.sh
+```
+
+## Rest of 9.6
+I adjusted the contents of ```/etc/sysconfig/rc.site``` to suit my desires for the IMPISH-LFS build
+The important changes being:
+-UTC=1
+-HEADLESS=yes
+-VERBOSE_FSCK=yes #unsure if needed, chose cos PiLFS system had set to yes
+
+
 
 ## notes:
 consider adding the "create a backup" process outlined in 7.13 to the ch7-build.sh script, might not be possible to do without leaving the chroot environment
