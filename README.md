@@ -150,7 +150,7 @@ umount /boot
 ```
 
 ## 8.85
-```rm -rf /tmp/{*,.*}```
+```rm -rf /tmp/{*,.*}```  
 this didn't actually do anything for me as the only thing in my tmp folder was another folder...not sure if that's cos I rebooted after running ch7-build.sh or what...
 ```
 find /usr/lib /usr/libexec -name \*.la -delete
