@@ -244,10 +244,10 @@ bash 9-6-2.sh
 ```
 
 ## Rest of 9.6
-I adjusted the contents of ```/etc/sysconfig/rc.site``` to suit my desires for the IMPISH-LFS build
-The important changes being:
--UTC=1
--HEADLESS=yes
+I adjusted the contents of ```/etc/sysconfig/rc.site``` to suit my desires for the IMPISH-LFS build  
+The important changes being:  
+-UTC=1  
+-HEADLESS=yes  
 -VERBOSE_FSCK=yes #unsure if needed, chose cos PiLFS system had set to yes
 
 
