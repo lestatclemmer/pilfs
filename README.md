@@ -243,12 +243,17 @@ bash 7-4.sh
 bash 9-6-2.sh
 ```
 
-## Rest of 9.6
+## Rest of 9.6 (rc.site file)
 I adjusted the contents of ```/etc/sysconfig/rc.site``` to suit my desires for the IMPISH-LFS build  
 The important changes being:  
 -UTC=1  
 -HEADLESS=yes  
--VERBOSE_FSCK=yes #unsure if needed, chose cos PiLFS system had set to yes
+-VERBOSE_FSCK=yes #unsure if needed, chose cos PiLFS system had set to yes  
+
+I'm not sure if I should do anything for SYSKLOGD_PARAMS
+
+!!STILL NEED TO FOLLOW THE PILFS STUFF!!!
+
 
 
 
