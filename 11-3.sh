@@ -1,5 +1,3 @@
-logout
-
 umount -v $LFS/dev/pts
 mountpoint -q $LFS/dev/shm && umount -v $LFS/dev/shm
 umount -v $LFS/dev
