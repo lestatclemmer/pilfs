@@ -8,7 +8,7 @@ done
 if [[ "$TERM" = linux ]]; then
   export LANG=C.UTF-8
 else
-  export LANG=<ll>_<CC>.<charmap><@modifiers>
+  export LANG=en_US.ISO-8859-1
 fi
 
 # End /etc/profile
